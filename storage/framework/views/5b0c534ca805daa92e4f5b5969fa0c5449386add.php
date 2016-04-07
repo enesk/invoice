@@ -25,12 +25,14 @@
       Gunes GmbH - Bahnhofstr. 24a, 76437 Rastatt
     </p>
     <p style="font-size: 12px;">
-      <?php echo e($order->buyer->invoiceAddress()->first()->first_name); ?> <?php echo e($order->buyer->invoiceAddress()->first()->last_name); ?>
+      <?php echo e($buyer->first_name); ?> <?php echo e($buyer->last_name); ?>
 
       <br/>
-      <?php echo e($order->buyer->invoiceAddress()->first()->street1); ?><br/>
-      <?php echo e($order->buyer->invoiceAddress()->first()->street2); ?><br/>
-      <?php echo e($order->buyer->invoiceAddress()->first()->zip); ?> <?php echo e($order->buyer->invoiceAddress()->first()->city); ?><br/><br/>
+      <?php echo e($buyer->street1); ?><br />
+      <?php if($buyer->street1 != $buyer->street2): ?>
+      <?php echo e($buyer->street2); ?><br/>
+      <?php endif; ?>
+      <?php echo e($buyer->zip); ?> <?php echo e($buyer->city); ?><br/><br/>
     </p>
 
     <div style="border: 1px solid #000; margin-top: 100px; padding: 10px;">
@@ -111,7 +113,7 @@
           Umsatzteuer-ID: DE256739226 - Steuernummer: 39484/30659 <br/>
         </div>
         <div class="col-xs-6">
-          Bankverbindung<br />
+          Bankverbindung<br/>
           Sparkasse Rastatt Gernsbach<br/>
           IBAN : DE03 6655 0070 0000 2284 86 - BIC: SOLADES1RAS
         </div>
