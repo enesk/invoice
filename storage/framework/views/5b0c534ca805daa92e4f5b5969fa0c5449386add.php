@@ -20,21 +20,48 @@
 <body>
 <div class="container">
   <div style="margin-top: 20px">
-    <img src="http://gunes24.de/image/catalog/logo.png" width="200"/>
-    <p style="text-decoration: underline; margin-top: 50px; font-size: 10px;">
-      Gunes GmbH - Bahnhofstr. 24a, 76437 Rastatt
-    </p>
-    <p style="font-size: 12px;">
-      <?php echo e($buyer->first_name); ?> <?php echo e($buyer->last_name); ?>
+    <div class="pull-left">
+      <div style="display: block; height: 65px;">
+        &nbsp;
+      </div>
+      <p style="text-decoration: underline; margin-top: 50px; font-size: 10px;">
+        Gunes GmbH - Bahnhofstr. 48a, 76437 Rastatt
+      </p>
+      <p style="font-size: 12px;">
+        <?php echo e($buyer->first_name); ?> <?php echo e($buyer->last_name); ?>
 
-      <br/>
-      <?php echo e($buyer->street1); ?><br />
-      <?php if($buyer->street1 != $buyer->street2): ?>
-      <?php echo e($buyer->street2); ?><br/>
-      <?php endif; ?>
-      <?php echo e($buyer->zip); ?> <?php echo e($buyer->city); ?><br/><br/>
-    </p>
+        <br/>
+        <?php echo e($buyer->street1); ?><br/>
+        <?php if($buyer->street1 != $buyer->street2): ?>
+          <?php echo e($buyer->street2); ?><br/>
+        <?php endif; ?>
+        <?php echo e($buyer->zip); ?> <?php echo e($buyer->city); ?><br/><br/>
+      </p>
+    </div>
+    <div class="pull-right">
+      <img src="http://gunes24.de/image/catalog/logo.png" width="200"/>
+      <br />
+      <table style="font-size: 12px; margin-top: 50px;">
+        <tr>
+          <td style="width: 40%;">Telefon:</td>
+          <td>+49 7222 - 789257</td>
+        </tr>
+        <tr>
+          <td>Fax:</td>
+          <td>+49 7222 - 938974</td>
+        </tr>
+        <tr>
+          <td>E-Mail:</td>
+          <td>info@gunes24.de</td>
+        </tr>
+        <tr>
+          <td>Website:</td>
+          <td>www.gunes24.de</td>
+        </tr>
+      </table>
 
+    </div>
+    <div class="clearfix"></div>
     <div style="border: 1px solid #000; margin-top: 100px; padding: 10px;">
       <div class="row">
         <span class="col-xs-7" style="font-size: 20px; font-weight: bold;">RECHNUNG</span>
