@@ -41,7 +41,7 @@
                 'buyer'     => $buyer,
             ];
 
-            return view('frontend.invoice.invoice', $data);
+           # return view('frontend.invoice.invoice', $data);
             $pdf = PDF::loadView('frontend.invoice.invoice', $data);
 
             return $pdf->download('Rechnung-'.$order->invoice->invoice_number.'.pdf');
