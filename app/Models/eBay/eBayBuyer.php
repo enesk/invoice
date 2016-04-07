@@ -20,7 +20,6 @@
      * @property $address_id
      * @property $invoice
      */
-
     class eBayBuyer extends Model
     {
 
@@ -47,16 +46,30 @@
             return $this->hasOne(eBayOrder::class, 'buyer_id');
         }
 
-        public function scopeWithIdenticalAddress($query) {
+        public function scopeWithIdenticalAddress($query)
+        {
+            $data = $query->where('invoice', 1)->get();
+            if ($data->isEmpty()):
+                return $query->where('invoice', 0);
+            endif;
+
             return $query->where('invoice', 1);
         }
 
-        public function scopeInvoiceAddress($query) {
+        public function scopeInvoiceAddress($query)
+        {
+            $data = $query->where('invoice', 0)->get();
+            if ($data->isEmpty()):
+                return $query->where('invoice', 1);
+            endif;
+
             return $query->where('invoice', 0);
         }
 
-        public function addOrder($order)
-        {
+        public
+        function addOrder(
+            $order
+        ) {
             $this->order()->create($order);
         }
     }
