@@ -221,29 +221,30 @@
                 'invoice'      => 1,
             ];
             $shipping            = eBayBuyer::create($shippingAddress);
-            if ($product->ShippingAddress->Street1 != $usersInvoiceAddress->Street) {
-                $shipping->invoice = 0;
-                $shipping->save();
+            if (isset($usersInvoiceAddress)):
+                if ($product->ShippingAddress->Street1 != $usersInvoiceAddress->Street):
+                    $shipping->invoice = 0;
+                    $shipping->save();
+                    $invoiceAddress = [
+                        'owner_id'     => $user->id,
+                        'ebay_user_id' => $product->BuyerUserID,
+                        'email'        => $product->TransactionArray->Transaction[0]->Buyer->Email,
+                        'first_name'   => $usersInvoiceAddress->Name,
+                        'last_name'    => '',
+                        'street1'      => $usersInvoiceAddress->Street,
+                        'street2'      => $usersInvoiceAddress->Street1,
+                        'zip'          => $usersInvoiceAddress->PostalCode,
+                        'city'         => $usersInvoiceAddress->CityName,
+                        'country'      => $usersInvoiceAddress->County,
+                        'phone'        => $usersInvoiceAddress->Phone,
+                        'address_id'   => $usersInvoiceAddress->AddressID,
+                        'invoice'      => 1,
+                    ];
+                    $invoice        = eBayBuyer::create($invoiceAddress);
 
-                $invoiceAddress             = [
-                    'owner_id'     => $user->id,
-                    'ebay_user_id' => $product->BuyerUserID,
-                    'email'        => $product->TransactionArray->Transaction[0]->Buyer->Email,
-                    'first_name'   => $usersInvoiceAddress->Name,
-                    'last_name'    => '',
-                    'street1'      => $usersInvoiceAddress->Street,
-                    'street2'      => $usersInvoiceAddress->Street1,
-                    'zip'          => $usersInvoiceAddress->PostalCode,
-                    'city'         => $usersInvoiceAddress->CityName,
-                    'country'      => $usersInvoiceAddress->County,
-                    'phone'        => $usersInvoiceAddress->Phone,
-                    'address_id'   => $usersInvoiceAddress->AddressID,
-                    'invoice'      => 1,
-                ];
-                $invoice                    = eBayBuyer::create($invoiceAddress);
-
-                return $invoice;
-            }
+                    return $invoice;
+                endif;
+            endif;
 
             return $shipping;
         }

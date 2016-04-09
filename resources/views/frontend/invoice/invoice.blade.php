@@ -39,7 +39,7 @@
     </div>
     <div class="pull-right">
       <img src="http://gunes24.de/image/catalog/logo.png" width="200"/>
-      <br />
+      <br/>
       <table style="font-size: 12px; margin-top: 50px;">
         <tr>
           <td style="width: 40%;">Telefon:</td>
@@ -74,6 +74,11 @@
         </span>
       </div>
     </div>
+    @if(isset($buyer->shipment))
+      <p style="margin-top: 30px; margin-bottom: 30px;">
+        Lieferadresse: {!! dd($buyer->count()) !!}
+      </p>
+    @endif
     <p style="margin-top: 30px; margin-bottom: 30px;">Unsere Lieferungen / Leistungen stellen wir Ihnen wie folgt in
       Rechnung.</p>
 
