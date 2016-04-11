@@ -74,11 +74,7 @@
         </span>
       </div>
     </div>
-    @if(isset($buyer->shipment))
-      <p style="margin-top: 30px; margin-bottom: 30px;">
-        Lieferadresse: {!! dd($buyer->count()) !!}
-      </p>
-    @endif
+
     <p style="margin-top: 30px; margin-bottom: 30px;">Unsere Lieferungen / Leistungen stellen wir Ihnen wie folgt in
       Rechnung.</p>
 
@@ -99,9 +95,9 @@
           <td style="text-align: center">{{ ++$key }}</td>
           <td>{{ $item->ebay_item_title }}</td>
           <td style="text-align: center">{{ $item->ebay_qty_purchased }}</td>
-          <td style="text-align: center">{{ money_format('%+n', $item->ebay_item_price) }} €</td>
+          <td style="text-align: center">{{ money_format('%+n', $item->ebay_item_price) }}</td>
           <td style="text-align: center">19%</td>
-          <td style="text-align: center">{{ money_format('%+n', $item->ebay_item_price*$item->ebay_qty_purchased) }}€
+          <td style="text-align: center">{{ money_format('%+n', $item->ebay_item_price*$item->ebay_qty_purchased) }}
           </td>
         </tr>
       @endforeach
@@ -118,17 +114,17 @@
         <td width="70%">
           <strong>Zwischensumme Netto:</strong>
         </td>
-        <td style="text-align: right">{{ money_format('%+n', $beforeTax) }} €</td>
+        <td style="text-align: right">{{ money_format('%+n', $beforeTax) }}</td>
       </tr>
       <tr>
         <td width="70%"><strong>USt. 19%:</strong></td>
-        <td style="text-align: right">{{ money_format('%+n', $tax) }} €</td>
+        <td style="text-align: right">{{ money_format('%+n', $tax) }}</td>
       </tr>
       <tr>
         <td width="70%">
           <strong>Gesamt:</strong>
         </td>
-        <td style="text-align: right">{{ money_format('%+n', $price) }} €</td>
+        <td style="text-align: right">{{ money_format('%+n', $price) }}</td>
       </tr>
       </tbody>
     </table>
