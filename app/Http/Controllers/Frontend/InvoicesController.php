@@ -28,8 +28,9 @@
             $buyer      = $order->buyer;
             $checkBuyer = eBayBuyer::where('ebay_user_id', $buyer->ebay_user_id);
             if ($checkBuyer->count() > 1):
-                $buyer = $checkBuyer->where('invoice', 1)->first();
+                $buyer['shipment'] = eBayBuyer::getShipmentDetails($buyer->ebay_user_id);
             endif;
+
             $price     = $order->total;
             $tax       = $price * 0.19;
             $beforeTax = $price - $tax;
@@ -41,7 +42,7 @@
                 'buyer'     => $buyer,
             ];
 
-           # return view('frontend.invoice.invoice', $data);
+        #    return view('frontend.invoice.invoice', $data);
             $pdf = PDF::loadView('frontend.invoice.invoice', $data);
 
             return $pdf->download('Rechnung-'.$order->invoice->invoice_number.'.pdf');

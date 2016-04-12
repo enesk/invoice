@@ -51,8 +51,16 @@
             return $query->where('invoice', 1);
         }
         
-        public function test($query) {
-            return $query;
+        public static function getInvoiceDetails($eBayUserID) {
+            return self::where('ebay_user_id', $eBayUserID)
+                ->where('invoice', 1)
+                ->first();
+        }
+
+        public static function getShipmentDetails($eBayUserID) {
+            return self::where('ebay_user_id', $eBayUserID)
+                ->where('invoice', 0)
+                ->first();
         }
 
         public function addOrder($order)

@@ -74,6 +74,15 @@
         </span>
       </div>
     </div>
+    @if(isset($buyer['shipment']))
+      <p style="margin-top: 30px; margin-bottom: 30px; font-size: 12px;">
+        Lieferadresse: {{ $buyer['shipment']->first_name }} {{ $buyer['shipment']->last_name }} -
+        {{ $buyer['shipment']->street1 }}
+        {{ $buyer['shipment']->street2 }} -
+        {{ $buyer['shipment']->zip }}
+        {{ $buyer['shipment']->city }}
+      </p>
+    @endif
 
     <p style="margin-top: 30px; margin-bottom: 30px;">Unsere Lieferungen / Leistungen stellen wir Ihnen wie folgt in
       Rechnung.</p>

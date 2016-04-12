@@ -53,7 +53,7 @@
             $order = eBayOrder::orderBy('id', 'desc')->first();
             # 2016-03-29 00:00:00
             # $order->order_created_at
-            $data = $this->fetchData('2016-03-29 00:00:00', Carbon::now());
+            $data = $this->fetchData($order->order_created_at, Carbon::now());
             foreach ($data as $x):
                 if ($x):
                     return Redirect::back()->with('flash_success', 'Sie haben neue Aufträge!');
