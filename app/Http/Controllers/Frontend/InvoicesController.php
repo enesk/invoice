@@ -6,6 +6,7 @@
     use App\Models\eBay\eBayOrder;
     use App\Models\eBay\eBayOrderInvoice;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Input;
     use Illuminate\Support\Facades\Redirect;
     use PDF;
 
@@ -64,8 +65,15 @@
             $buyer->save();
             $shipment = $request->get('shipment_buyer_id');
             if (isset($shipment)):
-                $shipmentBuyer             = eBayBuyer::find($shipment);
-                $shipmentBuyer->first_name = $request->get('shipment_first_name');
+                $shipmentBuyer     = eBayBuyer::find($shipment);
+                $shipmentFirstName = $request->get('shipment_first_name');
+                if ($shipment == 'new' && !empty($shipmentFirstName)):
+                    $shipmentBuyer               = eBayBuyer::create();
+                    $shipmentBuyer->owner_id     = access()->user()->id;
+                    $shipmentBuyer->ebay_user_id = $buyer->ebay_user_id;
+                    $shipmentBuyer->invoice      = 0;
+                endif;
+                $shipmentBuyer->first_name = $shipmentFirstName;
                 $shipmentBuyer->last_name  = $request->get('shipment_last_name');
                 $shipmentBuyer->street1    = $request->get('shipment_street1');
                 $shipmentBuyer->street2    = $request->get('shipment_street2');

@@ -107,10 +107,52 @@
         <input name="shipment_city" value="{{ $invoice->order->buyer->shipment->city }}" class="form-control"/>
       </div>
     </div>
+  @else
+    <a class="add-shipment" href="#!">Lieferadresse hinzufügen</a>
+    <div class="new-shipment" style="display: none">
+      <hr/>
+      <input type="hidden" name="shipment_buyer_id" value="new"/>
+      <h4>Lieferadresse</h4>
+      <div class="form-group row">
+        <div class="col-md-6">
+          {!! Form::label('shipment_first_name', 'Vorname:', ['class' => 'control-label']) !!}
+          <input name="shipment_first_name" value="" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+          {!! Form::label('shipment_last_name', 'Nachname:', ['class' => 'control-label']) !!}
+          <input name="shipment_last_name" value="" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          {!! Form::label('shipment_street1', 'Strasse 1:', ['class' => 'control-label']) !!}
+          <input name="shipment_street1" value="" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+          {!! Form::label('shipment_street2', 'Strasse 2:', ['class' => 'control-label']) !!}
+          <input name="shipment_street2" value="" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          {!! Form::label('shipment_zip', 'PLZ:', ['class' => 'control-label']) !!}
+          <input name="shipment_zip" value="" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+          {!! Form::label('shipment_city', 'Stadt:', ['class' => 'control-label']) !!}
+          <input name="shipment_city" value="" class="form-control"/>
+        </div>
+      </div>
+    </div>
   @endif
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
   <button type="submit" class="btn btn-primary">Speichern</button>
 </div>
+<script type="text/javascript">
+  $('.add-shipment').click(function () {
+    $('.new-shipment').toggle(800);
+  })
+</script>
 {!! Form::close() !!}
