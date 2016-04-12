@@ -66,28 +66,31 @@
             $shipment = $request->get('shipment_buyer_id');
             /* @todo fix it */
             if (isset($shipment) && $shipment > 0):
-                $shipmentBuyer     = eBayBuyer::find($shipment);
+                $shipmentBuyer             = eBayBuyer::find($shipment);
                 $shipmentBuyer->first_name = $request->get('shipment_first_name');;
-                $shipmentBuyer->last_name  = $request->get('shipment_last_name');
-                $shipmentBuyer->street1    = $request->get('shipment_street1');
-                $shipmentBuyer->street2    = $request->get('shipment_street2');
-                $shipmentBuyer->zip        = $request->get('shipment_zip');
-                $shipmentBuyer->city       = $request->get('shipment_city');
+                $shipmentBuyer->last_name = $request->get('shipment_last_name');
+                $shipmentBuyer->street1   = $request->get('shipment_street1');
+                $shipmentBuyer->street2   = $request->get('shipment_street2');
+                $shipmentBuyer->zip       = $request->get('shipment_zip');
+                $shipmentBuyer->city      = $request->get('shipment_city');
                 $shipmentBuyer->save();
             endif;
+            $shipmentFirstName = $request->get('shipment_first_name');
             if ($shipment == 'new' && !empty($shipmentFirstName)):
-                $shipmentBuyer               = eBayBuyer::create();
-                $shipmentBuyer->owner_id     = access()->user()->id;
-                $shipmentBuyer->ebay_user_id = $buyer->ebay_user_id;
-                $shipmentBuyer->invoice      = 0;
-                $shipmentBuyer->first_name = $shipmentFirstName;
-                $shipmentBuyer->last_name  = $request->get('shipment_last_name');
-                $shipmentBuyer->street1    = $request->get('shipment_street1');
-                $shipmentBuyer->street2    = $request->get('shipment_street2');
-                $shipmentBuyer->zip        = $request->get('shipment_zip');
-                $shipmentBuyer->city       = $request->get('shipment_city');
-                $shipmentBuyer->save();
+                $data = [
+                    'owner_id'     => access()->user()->id,
+                    'ebay_user_id' => $buyer->ebay_user_id,
+                    'invoice'      => 0,
+                    'first_name'   => $shipmentFirstName,
+                    'last_name'    => $request->get('shipment_last_name'),
+                    'street1'      => $request->get('shipment_street1'),
+                    'street2'      => $request->get('shipment_street2'),
+                    'zip'          => $request->get('shipment_zip'),
+                    'city'         => $request->get('shipment_city'),
+                ];
+                eBayBuyer::create($data);
             endif;
+
             return Redirect::back()->with('flash_success', 'Kundendaten wurden aktualisert');
         }
 
