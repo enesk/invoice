@@ -138,7 +138,7 @@
       </tbody>
     </table>
     <div class="clearfix"></div>
-    <div style="font-size: 10px; margin-top: 230px; text-align: center;">
+    <div style="font-size: 10px; margin-top: 200px; text-align: center;">
       <hr/>
       <div class="row">
         <div class="col-xs-6">
