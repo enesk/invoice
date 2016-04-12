@@ -32,6 +32,10 @@
                 'as'   => 'invoice.update',
                 'uses' => '\App\Http\Controllers\Frontend\InvoicesController@update',
             ]);
+            Route::get('/ebay/invoice/edit/{id}', [
+                'as'   => 'invoice.edit',
+                'uses' => '\App\Http\Controllers\Frontend\InvoicesController@edit',
+            ]);
         });
     });
 

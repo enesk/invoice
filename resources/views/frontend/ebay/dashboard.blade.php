@@ -9,7 +9,6 @@
       <th>Titel</th>
       <th>Käufer</th>
       <th>Benutzername</th>
-      <th>Versandschein</th>
       <th>Rechnung</th>
     </tr>
     </thead>
@@ -20,7 +19,6 @@
       <th>Titel</th>
       <th>Käufer</th>
       <th>Benutzername</th>
-      <th>Versandschein</th>
       <th>Rechnung</th>
     </tr>
     </tfoot>
@@ -32,17 +30,15 @@
         <td>{{ $buyer->order->items->first()->ebay_item_title }}</td>
         <td>{{ $buyer->first_name.' '.$buyer->last_name}}</td>
         <td>{{ $buyer->ebay_user_id }}</td>
-        <td>#</td>
         <td style="text-align: center" class="actions">
           <a style="color: #E22919" href="{{ route('invoice.download', $buyer->order->id) }}" title="{{ $buyer->title }}"><i class="fa fa-file-pdf-o"></i></a>
-          &nbsp;&nbsp;&nbsp;<a class="edit" data-invoice-number="{{ $buyer->order->invoice->invoice_number }}" data-invoice-id="{{ $buyer->order->invoice->id }}" style="color: #E22919" href="#!" title="{{ $buyer->title }}"><i class="fa fa-pencil"></i></a>
+          &nbsp;&nbsp;&nbsp;<a data-toggle="modal" data-target="#edit-form" href="{{ route('invoice.edit', $buyer->order->invoice->id) }}" class="edit" style="color: #E22919" title="{{ $buyer->title }}"><i class="fa fa-pencil"></i></a>
         </td>
       </tr>
     @endforeach
     </tbody>
   </table>
-
-  @include('frontend.invoice.modals.edit')
+  @include('frontend.invoice.modals.body')
 
 @section('after-scripts-end')
   <script type="text/javascript">
@@ -50,10 +46,8 @@
       $('#data-table').DataTable({
         "order": [[0, 'desc']]
       });
-      $("#data-table tbody").on("click", ".actions .edit", function(e) {
-        $('#invoice-number').val($(this).data('invoice-number'));
-        $('#invoice-id').val($(this).data('invoice-id'));
-        $('#edit-form').modal();
+      $('body').on('hidden.bs.modal', '.modal', function () {
+        $(this).removeData('bs.modal');
       });
     });
   </script>
