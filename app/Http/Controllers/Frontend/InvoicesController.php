@@ -73,7 +73,7 @@
                     $shipmentBuyer->ebay_user_id = $buyer->ebay_user_id;
                     $shipmentBuyer->invoice      = 0;
                 endif;
-                dd($shipment);
+                dd($shipmentBuyer);
                 $shipmentBuyer->first_name = $shipmentFirstName;
                 $shipmentBuyer->last_name  = $request->get('shipment_last_name');
                 $shipmentBuyer->street1    = $request->get('shipment_street1');
