@@ -64,16 +64,22 @@
             $buyer->city       = $request->get('invoice_city');
             $buyer->save();
             $shipment = $request->get('shipment_buyer_id');
-            if (isset($shipment)):
+            /* @todo fix it */
+            if (isset($shipment) && $shipment > 0):
                 $shipmentBuyer     = eBayBuyer::find($shipment);
-                $shipmentFirstName = $request->get('shipment_first_name');
-                if ($shipment == 'new' && !empty($shipmentFirstName)):
-                    $shipmentBuyer               = eBayBuyer::create();
-                    $shipmentBuyer->owner_id     = access()->user()->id;
-                    $shipmentBuyer->ebay_user_id = $buyer->ebay_user_id;
-                    $shipmentBuyer->invoice      = 0;
-                endif;
-                dd($shipmentBuyer);
+                $shipmentBuyer->first_name = $request->get('shipment_first_name');;
+                $shipmentBuyer->last_name  = $request->get('shipment_last_name');
+                $shipmentBuyer->street1    = $request->get('shipment_street1');
+                $shipmentBuyer->street2    = $request->get('shipment_street2');
+                $shipmentBuyer->zip        = $request->get('shipment_zip');
+                $shipmentBuyer->city       = $request->get('shipment_city');
+                $shipmentBuyer->save();
+            endif;
+            if ($shipment == 'new' && !empty($shipmentFirstName)):
+                $shipmentBuyer               = eBayBuyer::create();
+                $shipmentBuyer->owner_id     = access()->user()->id;
+                $shipmentBuyer->ebay_user_id = $buyer->ebay_user_id;
+                $shipmentBuyer->invoice      = 0;
                 $shipmentBuyer->first_name = $shipmentFirstName;
                 $shipmentBuyer->last_name  = $request->get('shipment_last_name');
                 $shipmentBuyer->street1    = $request->get('shipment_street1');
@@ -82,7 +88,6 @@
                 $shipmentBuyer->city       = $request->get('shipment_city');
                 $shipmentBuyer->save();
             endif;
-
             return Redirect::back()->with('flash_success', 'Kundendaten wurden aktualisert');
         }
 
