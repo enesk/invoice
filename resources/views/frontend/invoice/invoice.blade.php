@@ -84,7 +84,7 @@
       </p>
     @endif
 
-    <p style="margin-top: 30px; margin-bottom: 30px;">Unsere Lieferungen / Leistungen stellen wir Ihnen wie folgt in
+    <p style="margin-top: 30px; margin-bottom: 30px; font-size: 12px;">Unsere Lieferungen / Leistungen stellen wir Ihnen wie folgt in
       Rechnung.</p>
 
     <table class="table table-bordered" style="font-size: 11px;">
@@ -115,7 +115,8 @@
     <div class="pull-left" style="margin-top: 30px; margin-bottom: 30px; font-size: 10px;">
       <p>Es gelten unsere allgemeinen Verkaufs-, Lieferung- und Zahlungsbedingungen.</p>
       <p>Sämtliche Ware bleibt bis zur vollständingen Bezahlung unsere Eigentum.</p>
-      <p>Fällig</p>
+      <br />
+      <p>Besuchen Sie uns auf unserer Website: <span style="color: dodgerblue">www.gunes24.de</span> </p>
     </div>
     <table class="table pull-right" style="font-size: 11px; width: 40%">
       <tbody>
