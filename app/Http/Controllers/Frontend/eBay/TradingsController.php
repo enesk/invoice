@@ -36,6 +36,9 @@
          */
         public function index()
         {
+            if (empty(access()->user()->id)):
+                return Redirect::route('auth.login');
+            endif;
             $userID = access()->user()->id;
             $data   = [
                 'buyers' => eBayBuyer::where('owner_id', $userID)->withIdenticalAddress()->get(),
