@@ -5,8 +5,9 @@
     use App\Models\eBay\eBayBuyer;
     use App\Models\eBay\eBayOrder;
     use App\Models\eBay\eBayOrderInvoice;
+    use App\Models\eBay\eBayOrderItem;
+    use Carbon\Carbon;
     use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Input;
     use Illuminate\Support\Facades\Redirect;
     use PDF;
 
@@ -109,5 +110,68 @@
             ];
 
             return response()->view('frontend.invoice.modals.edit', $data);
+        }
+
+        public function create()
+        {
+            return response()->view('frontend.invoice.modals.create');
+        }
+
+        public function save(Request $request)
+        {
+            $data         = $request->all();
+            $createdBuyer = $this->createBuyer($data);
+            $item         = $data['item'];
+            $items        = collect($item);
+            $total        = $items->sum(function ($item) {
+                return $item['price'] * $item['qty_purchased'];
+            });
+            $order        = $this->createOrder($createdBuyer->id, $total);
+            $items->map(function ($item) use ($order) {
+                $item['order_id'] = $order->id;
+                eBayOrderItem::create($item);
+                $settings = access()->user()->settings()->first();
+                $settings->increment('invoice_number');
+                eBayOrderInvoice::createNewInvoiceNumber(access()->user()->id, $order->id,
+                    $settings->invoice_number);
+            });
+
+            return Redirect::back()->with('flash_success', 'Auftrag gespeichert');
+        }
+
+        private function createOrder($buyerID, $total)
+        {
+            $order                     = [];
+            $order['buyer_id']         = $buyerID;
+            $order['total']            = $total;
+            $order['payment_method']   = 'Manuell';
+            $order['payment_status']   = 'Completed';
+            $order['amount_paid']      = $order['total'];
+            $order['order_created_at'] = Carbon::now();
+
+            return eBayOrder::create($order);
+        }
+
+        /**
+         * @param $data
+         *
+         * @return static
+         */
+        private function createBuyer($data)
+        {
+            $buyerDetails             = $data['invoice'];
+            $buyerDetails['owner_id'] = access()->user()->id;
+            $buyerDetails['invoice']  = 1;
+            $createdBuyer             = eBayBuyer::create($buyerDetails);
+            $shipmentDetails          = $data['shipment'];
+            if (!empty($shipmentDetails['first_name'])):
+                $shipmentDetails['owner_id'] = access()->user()->id;
+                $shipmentDetails['invoice']  = 0;
+                eBayBuyer::create($shipmentDetails);
+
+                return $createdBuyer;
+            endif;
+
+            return $createdBuyer;
         }
     }

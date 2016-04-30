@@ -6,6 +6,7 @@
     /**
      * @package App\Models\eBay\eBayBuyer
      *
+     * @property $id;
      * @property $owner_id
      * @property $ebay_user_id
      * @property $email

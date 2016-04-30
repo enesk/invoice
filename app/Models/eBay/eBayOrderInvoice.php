@@ -33,18 +33,13 @@
             'invoice_number',
         ];
 
-        public function createNewInvoiceNumber($ownerID, $orderID, $invoiceNumber)
+        public static function createNewInvoiceNumber($ownerID, $orderID, $invoiceNumber)
         {
-            $invoice = self::where('order_id', $orderID)->first();
-            if (!isset($invoice)):
-                $invoice = self::create([
-                    'owner_id'       => $ownerID,
-                    'order_id'       => $orderID,
-                    'invoice_number' => $invoiceNumber,
-                ]);
-
-                return $invoice->invoice_number;
-            endif;
+            $invoice = self::create([
+                'owner_id'       => $ownerID,
+                'order_id'       => $orderID,
+                'invoice_number' => $invoiceNumber,
+            ]);
 
             return $invoice->invoice_number;
         }

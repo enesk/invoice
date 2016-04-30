@@ -148,9 +148,9 @@
                 $items = [
                     'order_id'            => $order->id,
                     'ebay_item_id'        => $transaction->Item->ItemID,
-                    'ebay_item_title'     => $transaction->Item->Title,
-                    'ebay_qty_purchased'  => $transaction->QuantityPurchased,
-                    'ebay_item_price'     => $transaction->TransactionPrice->value,
+                    'title'               => $transaction->Item->Title,
+                    'qty_purchased'       => $transaction->QuantityPurchased,
+                    'price'               => $transaction->TransactionPrice->value,
                     'ebay_transaction_id' => $transaction->TransactionID,
                 ];
                 $order->items()->create($items);

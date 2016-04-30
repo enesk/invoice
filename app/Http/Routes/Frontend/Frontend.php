@@ -2,8 +2,8 @@
     /**
      * Frontend Controllers
      */
-    Route::get('/', 'FrontendController@index')->name('frontend.index');
-    Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
+    Route::get('/', '\App\Http\Controllers\Frontend\eBay\TradingsController@index')->name('frontend.index');
+    
     /**
      * These frontend controllers require the user to be logged in
      */
@@ -27,6 +27,14 @@
             Route::get('/ebay/invoice/download/{id}', [
                 'as'   => 'invoice.download',
                 'uses' => '\App\Http\Controllers\Frontend\InvoicesController@download',
+            ]);
+            Route::get('/ebay/invoice/create', [
+                'as'   => 'invoice.create',
+                'uses' => '\App\Http\Controllers\Frontend\InvoicesController@create',
+            ]);
+            Route::patch('/ebay/invoice/save', [
+                'as'   => 'invoice.save',
+                'uses' => '\App\Http\Controllers\Frontend\InvoicesController@save',
             ]);
             Route::patch('/ebay/invoice/update', [
                 'as'   => 'invoice.update',

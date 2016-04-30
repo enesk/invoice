@@ -102,11 +102,11 @@
       @foreach($order->items as $key => $item)
         <tr>
           <td style="text-align: center">{{ ++$key }}</td>
-          <td>{{ $item->ebay_item_title }}</td>
-          <td style="text-align: center">{{ $item->ebay_qty_purchased }}</td>
-          <td style="text-align: center">{{ money_format('%+n', $item->ebay_item_price) }}</td>
+          <td>{{ $item->title }}</td>
+          <td style="text-align: center">{{ $item->qty_purchased }}</td>
+          <td style="text-align: center">{{ money_format('%+n', $item->price) }}</td>
           <td style="text-align: center">19%</td>
-          <td style="text-align: center">{{ money_format('%+n', $item->ebay_item_price*$item->ebay_qty_purchased) }}
+          <td style="text-align: center">{{ money_format('%+n', $item->price*$item->qty_purchased) }}
           </td>
         </tr>
       @endforeach
@@ -139,7 +139,7 @@
       </tbody>
     </table>
     <div class="clearfix"></div>
-    <div style="font-size: 10px; margin-top: 200px; text-align: center;">
+    <div style="font-size: 10px; margin-top: 150px; text-align: center;">
       <hr/>
       <div class="row">
         <div class="col-xs-6">
